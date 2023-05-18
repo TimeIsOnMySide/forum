@@ -44,6 +44,8 @@ const renderPosts = function() {
         Downvotes: <span id="downvotes-${post.name}">${post.downvotes}</span>
         <button onclick="upvotePost('${post.name}')">Upvote</button>
         <button onclick="downvotePost('${post.name}')">Downvote</button>
+        <br>
+        <button onclick="deletePost('${post.name}')">Delete</button>
       </div>
       <hr>
     `;
@@ -72,6 +74,17 @@ const downvotePost = function(name) {
   // Update the Dom with the new count
   let downvotesElement = document.getElementById(`downvotes-${name}`);
   downvotesElement.textContent = post.downvotes.toString();
+  // Re-render the posts
+  renderPosts();
+}
+
+const deletePost = function(name) {
+  // Find the post name in the array of posts
+  let post = posts.find(post => post.name === name);
+  // Find index of this post
+  let postIndex = posts.indexOf(post);
+  // Remove that item from the array
+  posts.splice(postIndex, 1);
   // Re-render the posts
   renderPosts();
 }
